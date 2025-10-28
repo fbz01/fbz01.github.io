@@ -50,5 +50,24 @@
       "Tilsätt tomatpuré och stek någon minut",
       "Häll på vispgrädde och sjud 5 minuter"
     ]
+  },
+  {
+    "id": "korv-stroganoff",
+    "title": "Korvstroganoff",
+    "category": "Husman",
+    "tags": ["korv", "ris"],
+    "image": "assets/bilder/korvstroganoff.png",
+    "ingredients": [
+      "Falukorv",
+      "2 st gul lök",
+      "5 dl vispgrädde",
+      "2 msk tomatpuré"
+    ],
+    "instructions": [
+      "Stek falukorven ordentligt",
+      "Tilsätt gul lök",
+      "Tilsätt tomatpuré och stek någon minut",
+      "Häll på vispgrädde och sjud 5 minuter"
+    ]
   }
 ]
