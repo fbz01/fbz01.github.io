@@ -1,0 +1,23 @@
+/* Dark-first palette */
+html[data-theme="dark"] {
+  --bg: #0b1321;
+  --panel: #151e2d;
+  --panel-2: #101827;
+  --border: #25344c;
+  --muted: #9fb6d9;
+  --text: #f1f4fe;
+  --accent: #ff7b52;
+}
+
+/* Auto-läge: följ systemet om data-theme="auto" */
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] {
+    --bg: #0b1321;
+    --panel: #151e2d;
+    --panel-2: #101827;
+    --border: #25344c;
+    --muted: #9fb6d9;
+    --text: #f1f4fe;
+    --accent: #ff7b52;
+  }
+}

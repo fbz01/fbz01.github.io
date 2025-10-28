@@ -1,0 +1,54 @@
+[
+  {
+    "id": "kottbullar-potatismos",
+    "title": "Köttbullar med potatismos",
+    "category": "Husman",
+    "tags": ["snabbt", "kött"],
+    "image": "assets/bilder/kottbullar.png",
+    "ingredients": [
+      "500 g nötfärs",
+      "1 ägg",
+      "1 dl ströbröd",
+      "1 dl mjölk",
+      "Smör, salt, peppar"
+    ],
+    "instructions": [
+      "Blanda ströbröd och mjölk, låt svälla 5 min.",
+      "Rör i färs, ägg, kryddor. Rulla bollar.",
+      "Stek i smör tills yta + genomstekt.",
+      "Koka potatis, vispa mos med smör & mjölk."
+    ],
+    "tips": "Stek i omgångar för bättre stekyta."
+  },
+  {
+    "id": "lasagne",
+    "title": "Lasagne",
+    "category": "Pasta",
+    "tags": ["kött"],
+    "image": "assets/bilder/lasagne.png",
+    "ingredients": ["Köttfärssås", "Lasagneplattor", "Riven ost", "Bechamelsås"],
+    "instructions": [
+      "Varva köttfärssås, plattor, bechamelsås och ost",
+      "Avsluta med ost, grädda 35–40 min 200°C."
+    ]
+  },
+  {
+    "id": "korv-stroganoff",
+    "title": "Korvstroganoff",
+    "category": "Husman",
+    "tags": ["korv", "ris"],
+    "image": "assets/bilder/korvstroganoff.png",
+    "ingredients": [
+      "Falukorv",
+      "2 st gul lök",
+      "5 dl vispgrädde",
+      "2 msk tomatpuré"
+    ],
+    "instructions": [
+      "Stek falukorven ordentligt",
+      "Tilsätt gul lök",
+      "Tilsätt tomatpuré och stek någon minut",
+      "Häll på vispgrädde och sjud 5 minuter"
+    ]
+  }
+]

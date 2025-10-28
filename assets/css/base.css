@@ -1,0 +1,81 @@
+:root {
+  /* Light default (auto växlar via theme.css) */
+  --bg: #f6f7fb;
+  --panel: #ffffff;
+  --panel-2: #f0f3f9;
+  --border: #d7dff0;
+  --muted: #556581;
+  --text: #0f1420;
+  --accent: #cc3b1e;
+
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  --space: clamp(0.75rem, 2.5vw, 1rem);
+  --touch: 44px; /* min-touchtarget */
+}
+
+* {
+  box-sizing: border-box;
+}
+html,
+body {
+  min-height: 100vh;  /* se till att roten alltid fyller hela fönstret */
+}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: "Figtree", system-ui, Segoe UI, Roboto, Arial,
+    sans-serif;
+  line-height: 1.45;
+  -webkit-tap-highlight-color: transparent;
+}
+body.no-scroll{
+  overflow: hidden;
+}
+
+h1 {
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  margin: 0 0 0.2rem;
+}
+.sub {
+  margin: 0.2rem 0 0;
+  color: var(--muted);
+  font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+.site-header,
+.site-footer {
+  background: linear-gradient(180deg, var(--panel-2), transparent);
+}
+.header-inner,
+.footer-inner,
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: var(--space);
+}
+.header-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.header-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 0.5rem;
+}
+
+.container {
+  padding-top: 0;
+}
+
+.sr-only {
+  position: absolute;
+  left: -9999px;
+}
+/* Dynamisk viewporthöjd för mobila dialoger */
+:root {
+  --vh: 1vh; /* fallback */
+}
+

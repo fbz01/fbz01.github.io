@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="sv" data-theme="auto">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0f1522" />
+  <title>Min Receptsamling</title>
+
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:ital,wght@0,300..900;1,300..900&family=League+Spartan:wght@100..900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/base.css">
+  <link rel="stylesheet" href="assets/css/theme.css">
+  <link rel="stylesheet" href="assets/css/components.css">
+
+  <link rel="preload" href="data/recipes.json" as="fetch" crossorigin="anonymous">
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <div class="title-wrap">
+        <h1>Recept</h1>
+        <p class="sub">S&ouml;k, filtrera och f&aring; tips p&aring; nya favoriter</p>
+      </div>
+      <div class="header-actions">
+        <button id="themeToggle" class="btn theme-toggle" type="button" aria-pressed="false" title="V&auml;xla tema" aria-label="V&auml;xla tema">Tema</button>
+      </div>
+    </div>
+  </header>
+
+  <div id="sheetScrim" class="sheet-scrim" hidden></div>
+
+  <main class="container">
+    <section class="toolbar" aria-label="S&ouml;k och filter">
+      <div class="toolbar-grid">
+        <label for="search" class="toolbar-label">S&ouml;k recept</label>
+        <div class="toolbar-controls">
+          <input id="search" type="search" inputmode="search" placeholder="S&ouml;k titel, ingrediens eller tagg..." autocomplete="off">
+          <div class="toolbar-actions">
+            <button class="btn secondary ghost" type="button" data-action="clear-filters" title="Rensa alla filter">Rensa</button>
+            <button id="filterToggle" class="btn primary" type="button" aria-expanded="false" aria-controls="filters">Filter</button>
+          </div>
+        </div>
+      </div>
+      <p id="resultSummary" class="toolbar-summary" aria-live="polite"></p>
+    </section>
+
+    <section id="filters" class="filters sheet" aria-label="Filtrering" hidden>
+      <div class="sheet-head" aria-hidden="true">
+        <div class="sheet-handle"></div>
+        <button id="filterClose" class="btn icon-btn" type="button" title="St&auml;ng filter" aria-label="St&auml;ng filter">&times;</button>
+      </div>
+
+      <p class="sheet-help">V&auml;lj en kategori eller tagg f&ouml;r att sn&auml;va av listan.</p>
+
+      <div class="row">
+        <strong>Kategori:</strong>
+        <div id="catButtons" class="chip-row" role="tablist" aria-label="Kategorier"></div>
+      </div>
+
+      <div class="row">
+        <strong>Taggar:</strong>
+        <div id="tagChips" class="chip-row" aria-label="Taggar (multival)"></div>
+      </div>
+
+      <button class="btn secondary full-width" type="button" data-action="clear-filters" title="Rensa alla filter">Rensa filter</button>
+    </section>
+
+    <section class="results">
+      <div class="results-head">
+        <div id="activeFilters" class="active-filters" aria-live="polite"></div>
+      </div>
+      <div id="grid" class="grid" aria-live="polite" aria-busy="true"></div>
+      <p id="empty" class="empty" hidden>Inga recept matchar filtren. Justera s&ouml;kningen eller rensa filtren.</p>
+    </section>
+  </main>
+
+  <dialog id="dlg">
+    <div class="modal-head">
+      <div class="sheet-handle modal-handle" aria-hidden="true"></div>
+      <div class="title-wrap">
+        <h2 id="dlgTitle"></h2>
+      </div>
+      <button id="dlgClose" class="btn icon-btn" type="button" title="St&auml;ng" aria-label="St&auml;ng">&times;</button>
+    </div>
+    <div class="modal-body">
+      <img id="dlgImg" alt="">
+      <div class="modal-col">
+        <h3>Ingredienser</h3>
+        <ul id="dlgIng"></ul>
+        <h3>Instruktioner</h3>
+        <ol id="dlgSteps"></ol>
+        <p id="dlgTips" class="tip" hidden></p>
+      </div>
+    </div>
+  </dialog>
+
+  <footer class="site-footer">
+    <div class="footer-inner">&copy; Receptsamling</div>
+  </footer>
+
+  <script defer src="assets/js/theme.js"></script>
+  <script defer src="assets/js/app.js"></script>
+</body>
+</html>
