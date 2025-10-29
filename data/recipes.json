@@ -3,7 +3,10 @@
     "id": "kottbullar-potatismos",
     "title": "Köttbullar med potatismos",
     "category": "Husman",
-    "tags": ["snabbt", "kött"],
+    "tags": [
+      "snabbt",
+      "kött"
+    ],
     "image": "assets/bilder/kottbullar.png",
     "ingredients": [
       "500 g nötfärs",
@@ -24,9 +27,16 @@
     "id": "lasagne",
     "title": "Lasagne",
     "category": "Pasta",
-    "tags": ["kött"],
+    "tags": [
+      "kött"
+    ],
     "image": "assets/bilder/lasagne.png",
-    "ingredients": ["Köttfärssås", "Lasagneplattor", "Riven ost", "Bechamelsås"],
+    "ingredients": [
+      "Köttfärssås",
+      "Lasagneplattor",
+      "Riven ost",
+      "Bechamelsås"
+    ],
     "instructions": [
       "Varva köttfärssås, plattor, bechamelsås och ost",
       "Avsluta med ost, grädda 35–40 min 200°C."
@@ -36,7 +46,10 @@
     "id": "korv-stroganoff",
     "title": "Korvstroganoff",
     "category": "Husman",
-    "tags": ["korv", "ris"],
+    "tags": [
+      "korv",
+      "ris"
+    ],
     "image": "assets/bilder/korvstroganoff.png",
     "ingredients": [
       "Falukorv",
@@ -55,7 +68,10 @@
     "id": "korv-stroganoff",
     "title": "Korvstroganoff",
     "category": "Husman",
-    "tags": ["korv", "ris"],
+    "tags": [
+      "korv",
+      "ris"
+    ],
     "image": "assets/bilder/korvstroganoff.png",
     "ingredients": [
       "Falukorv",
@@ -69,5 +85,23 @@
       "Tilsätt tomatpuré och stek någon minut",
       "Häll på vispgrädde och sjud 5 minuter"
     ]
+  },
+  {
+    "id": "pannkakor",
+    "title": "Pannkakor",
+    "category": "Husman",
+    "tags": [],
+    "image": "",
+    "ingredients": [
+      "Ägg",
+      "Vetemjöl",
+      "Salt",
+      "Socker",
+      "Smör"
+    ],
+    "instructions": [
+      "Stek pannkakor"
+    ],
+    "tips": ""
   }
 ]
