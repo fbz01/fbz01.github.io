@@ -81,5 +81,22 @@
       "Stek pannkakor"
     ],
     "tips": ""
+  },
+  {
+    "id": "chokladbollar",
+    "title": "Chokladbollar",
+    "category": "Bak",
+    "tags": [
+      "snabbt"
+    ],
+    "image": "",
+    "ingredients": [
+      "Kakao"
+    ],
+    "instructions": [
+      "Blanda ingredienser",
+      "Rulla bollarna"
+    ],
+    "tips": ""
   }
 ]
