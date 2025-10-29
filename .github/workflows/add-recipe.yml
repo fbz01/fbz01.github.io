@@ -43,45 +43,75 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Add recipe to JSON
+        env:
+          FILE: recipes.json                       # ändra om filen ligger någon annanstans
+          TITLE: ${{ inputs.title }}
+          CATEGORY: ${{ inputs.category }}
+          TAGS: ${{ inputs.tags }}
+          IMAGE: ${{ inputs.image }}
+          INGREDIENTS: ${{ inputs.ingredients }}
+          INSTRUCTIONS: ${{ inputs.instructions }}
+          TIPS: ${{ inputs.tips }}
         run: |
-          FILE="recipes.json"
-
           # Skapa fil om den saknas
-          if [ ! -f "$FILE" ]; then
-            echo "[]" > "$FILE"
-          fi
+          [ -f "$FILE" ] || echo "[]" > "$FILE"
 
-          # Skapa ID (små bokstäver, bindestreck)
-          ID=$(echo "${{ inputs.title }}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+          # Generera id (kebab-case, transliterera specialtecken)
+          ID=$(
+            echo "$TITLE" \
+            | iconv -f utf8 -t ascii//TRANSLIT 2>/dev/null \
+            | tr '[:upper:]' '[:lower:]' \
+            | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g'
+          )
+          export ID
 
-          # Läs befintlig JSON och lägg till ny post
-          node -e '
-          import fs from "fs";
-          const path = "recipes.json";
-          const data = JSON.parse(fs.readFileSync(path, "utf8"));
-          const id = process.env.ID;
-          const newItem = {
-            id,
+          # Använd CommonJS (require) för att slippa --input-type=module
+          node - <<'NODE'
+          const fs = require('fs');
+
+          const path = process.env.FILE || 'recipes.json';
+          const toArr = (v) => (v && v.trim() !== '' ? v.split(',').map(s => s.trim()).filter(Boolean) : []);
+
+          // Läs/parsea befintlig JSON-array
+          let data = [];
+          if (fs.existsSync(path)) {
+            const raw = fs.readFileSync(path, 'utf8').trim();
+            if (raw) {
+              try {
+                const parsed = JSON.parse(raw);
+                if (Array.isArray(parsed)) data = parsed;
+              } catch (e) {
+                throw new Error(`Kunde inte parsa ${path}: ${e.message}`);
+              }
+            }
+          }
+
+          const item = {
+            id: process.env.ID,
             title: process.env.TITLE,
             category: process.env.CATEGORY,
-            tags: process.env.TAGS ? process.env.TAGS.split(",").map(t => t.trim()) : [],
+            tags: toArr(process.env.TAGS),
             image: process.env.IMAGE || "",
-            ingredients: process.env.INGREDIENTS.split(",").map(s => s.trim()),
-            instructions: process.env.INSTRUCTIONS.split(",").map(s => s.trim()),
+            ingredients: toArr(process.env.INGREDIENTS),
+            instructions: toArr(process.env.INSTRUCTIONS),
             tips: process.env.TIPS || ""
           };
-          data.push(newItem);
-          fs.writeFileSync(path, JSON.stringify(data, null, 2));
-          console.log("Added recipe:", newItem.title);
-          ' \
-          TITLE="${{ inputs.title }}" \
-          CATEGORY="${{ inputs.category }}" \
-          TAGS="${{ inputs.tags }}" \
-          IMAGE="${{ inputs.image }}" \
-          INGREDIENTS="${{ inputs.ingredients }}" \
-          INSTRUCTIONS="${{ inputs.instructions }}" \
-          TIPS="${{ inputs.tips }}" \
-          ID="$ID"
+
+          // Validering
+          if (!item.title) throw new Error("Titel saknas.");
+          if (!item.category) throw new Error("Kategori saknas.");
+          if (item.ingredients.length === 0) throw new Error("Minst en ingrediens krävs.");
+
+          // Dublettkontroll på id
+          if (data.some(r => r.id === item.id)) {
+            throw new Error(`ID '${item.id}' finns redan i ${path}.`);
+          }
+
+          data.push(item);
+          fs.writeFileSync(path, JSON.stringify(data, null, 2) + '\n', 'utf8');
+          console.log(`Added: ${item.title} (id=${item.id})`);
+          NODE
+
 
       - name: Commit and push changes
         uses: stefanzweifel/git-auto-commit-action@v5
