@@ -1,0 +1,89 @@
+name: Add new recipe
+
+on:
+  workflow_dispatch:
+    inputs:
+      title:
+        description: "Titel på receptet"
+        required: true
+        type: string
+      category:
+        description: "Kategori (t.ex. Husman, Pasta, Fisk, osv)"
+        required: true
+        type: string
+      tags:
+        description: "Taggar (komma-separerade, t.ex. snabbt,kött)"
+        required: false
+        type: string
+      image:
+        description: "Bildsökväg (t.ex. assets/bilder/minratt.png)"
+        required: false
+        type: string
+      ingredients:
+        description: "Ingredienser (kommaseparerade)"
+        required: true
+        type: string
+      instructions:
+        description: "Instruktioner (kommaseparerade)"
+        required: true
+        type: string
+      tips:
+        description: "Tips (valfritt)"
+        required: false
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  add_recipe:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Add recipe to JSON
+        run: |
+          FILE="recipes.json"
+
+          # Skapa fil om den saknas
+          if [ ! -f "$FILE" ]; then
+            echo "[]" > "$FILE"
+          fi
+
+          # Skapa ID (små bokstäver, bindestreck)
+          ID=$(echo "${{ inputs.title }}" | tr '[:upper:]' '[:lower:]' | tr ' ' '-')
+
+          # Läs befintlig JSON och lägg till ny post
+          node -e '
+          import fs from "fs";
+          const path = "recipes.json";
+          const data = JSON.parse(fs.readFileSync(path, "utf8"));
+          const id = process.env.ID;
+          const newItem = {
+            id,
+            title: process.env.TITLE,
+            category: process.env.CATEGORY,
+            tags: process.env.TAGS ? process.env.TAGS.split(",").map(t => t.trim()) : [],
+            image: process.env.IMAGE || "",
+            ingredients: process.env.INGREDIENTS.split(",").map(s => s.trim()),
+            instructions: process.env.INSTRUCTIONS.split(",").map(s => s.trim()),
+            tips: process.env.TIPS || ""
+          };
+          data.push(newItem);
+          fs.writeFileSync(path, JSON.stringify(data, null, 2));
+          console.log("Added recipe:", newItem.title);
+          ' \
+          TITLE="${{ inputs.title }}" \
+          CATEGORY="${{ inputs.category }}" \
+          TAGS="${{ inputs.tags }}" \
+          IMAGE="${{ inputs.image }}" \
+          INGREDIENTS="${{ inputs.ingredients }}" \
+          INSTRUCTIONS="${{ inputs.instructions }}" \
+          TIPS="${{ inputs.tips }}" \
+          ID="$ID"
+
+      - name: Commit and push changes
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: "Add recipe: ${{ inputs.title }}"
