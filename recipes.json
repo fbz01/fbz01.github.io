@@ -1,0 +1,20 @@
+[
+  {
+    "id": "pannkakor",
+    "title": "Pannkakor",
+    "category": "Husman",
+    "tags": [],
+    "image": "",
+    "ingredients": [
+      "Ägg",
+      "Vetemjöl",
+      "Salt",
+      "Socker",
+      "Smör"
+    ],
+    "instructions": [
+      "Stek pannkakor"
+    ],
+    "tips": ""
+  }
+]
