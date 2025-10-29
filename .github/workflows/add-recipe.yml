@@ -44,7 +44,7 @@ jobs:
 
       - name: Add recipe to JSON
         env:
-          FILE: recipes.json                       # ändra om filen ligger någon annanstans
+          FILE: data/recipes.json                       # ändra om filen ligger någon annanstans
           TITLE: ${{ inputs.title }}
           CATEGORY: ${{ inputs.category }}
           TAGS: ${{ inputs.tags }}
